@@ -1,1 +1,3 @@
 ﻿circle and particle texture used from particle exercise tutorial
+Purpose font was used for non commercial usage and can be found here https://www.urbanfonts.com/fonts/Purpose.font
+

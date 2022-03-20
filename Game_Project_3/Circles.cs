@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 namespace Game_Project_3
 {
@@ -11,10 +12,14 @@ namespace Game_Project_3
 
         Game _game;
 
+        public Boolean collision = false;
+
         public Vector2 _position;
 
         //this will be a circle eventually
         public Rectangle _rectange;
+
+        protected static ContentManager contentManager;
 
         SpriteBatch spriteBatch;
         Texture2D whiteRectangle;
@@ -38,10 +43,10 @@ namespace Game_Project_3
         {
             base.LoadContent();
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            if (contentManager == null) contentManager = new ContentManager(Game.Services, "Content");
             // Create a 1px square rectangle texture that will be scaled to the
             // desired size and tinted the desired color at draw time
-            whiteRectangle = new Texture2D(GraphicsDevice, 1, 1);
-            whiteRectangle.SetData(new[] { Color.White });
+            whiteRectangle = contentManager.Load<Texture2D>("target");//new Texture2D(GraphicsDevice, 1, 1);
         }
 
         protected override void UnloadContent()
@@ -60,8 +65,14 @@ namespace Game_Project_3
             spriteBatch.Begin();
 
             // Option One (if you have integer size and coordinates)
-            spriteBatch.Draw(whiteRectangle, _rectange,
-                    Color.White);
+            if (collision)
+            {
+                spriteBatch.Draw(whiteRectangle, _rectange, Color.LightGreen);
+            }
+            else
+            {
+                spriteBatch.Draw(whiteRectangle, _rectange, Color.White);
+            }
 
             spriteBatch.End();
         }

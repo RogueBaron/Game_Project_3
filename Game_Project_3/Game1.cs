@@ -1,13 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
 
 namespace Game_Project_3
 {
     public class Game1 : Game, IParticleEmitter
     {
+        SpriteFont purposeFont;
+
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        Texture2D _mouseTexture;
 
         MouseState _priorMouse;
         KeyboardState _priorKeyboard;
@@ -20,6 +24,8 @@ namespace Game_Project_3
 
         public Circles circle;
 
+        public int score;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -30,7 +36,8 @@ namespace Game_Project_3
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            // TODO: Add your initialization logic her
+
             StarsParticleSystem rain = new StarsParticleSystem(this, new Rectangle(-10, -100, 800, 500));
             Components.Add(rain);
             _fireworks = new FireworkParticleSystem(this, 20);
@@ -41,16 +48,20 @@ namespace Game_Project_3
 
             circle = new Circles(this);
             Components.Add(circle);
-            
+
+            score = 0;
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
+            purposeFont = Content.Load<SpriteFont>("purposeFont");
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            _mouseTexture = this.Content.Load<Texture2D>("mouse");
+            Mouse.SetCursor(MouseCursor.FromTexture2D(_mouseTexture, _mouseTexture.Width/2, _mouseTexture.Height/2));
             // TODO: use this.Content to load your game content here
+            
 
         }
 
@@ -65,10 +76,29 @@ namespace Game_Project_3
             Vector2 mousePosition = new Vector2(currentMouse.X, currentMouse.Y);
             var mouserect = new Rectangle(mousePosition.ToPoint(), mousePosition.ToPoint());
 
+            if (mouserect.Intersects(circle._rectange))
+            {
+                circle.collision = true;
+            }
+            else
+            {
+                circle.collision = false;
+                if (((currentMouse.LeftButton == ButtonState.Pressed && _priorMouse.LeftButton == ButtonState.Released) || (currentKeyboard.IsKeyDown(Keys.Space))))
+                {
+                    score = 0;
+                }
+            }
+
+
             if (((currentMouse.LeftButton == ButtonState.Pressed && _priorMouse.LeftButton == ButtonState.Released) || (currentKeyboard.IsKeyDown(Keys.Space) && _priorKeyboard.IsKeyUp(Keys.Space))) && mouserect.Intersects(circle._rectange))
             {
-                _fireworks.PlaceFirework(mousePosition);
+
+                for(int i = 0; i < 5; i++)
+                {
+                    _fireworks.PlaceFirework(mousePosition);
+                }
                 circle.updatePosition();
+                score++;
             }
 
             Velocity = mousePosition - Position;
@@ -84,7 +114,9 @@ namespace Game_Project_3
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
+            _spriteBatch.Begin();
+            _spriteBatch.DrawString(purposeFont, "Score: " + score.ToString(), new Vector2(10,10), Color.White);
+            _spriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
