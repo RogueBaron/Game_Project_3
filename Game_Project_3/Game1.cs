@@ -2,15 +2,23 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace Game_Project_3
 {
     public class Game1 : Game, IParticleEmitter
     {
+
+        SoundEffect fireworkExplosionSound;
+
+        Song backgroundMusic;
+
         SpriteFont purposeFont;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+
         Texture2D _mouseTexture;
 
         MouseState _priorMouse;
@@ -29,7 +37,7 @@ namespace Game_Project_3
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
-            _graphics.ToggleFullScreen();
+            //_graphics.ToggleFullScreen();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -56,6 +64,9 @@ namespace Game_Project_3
 
         protected override void LoadContent()
         {
+            fireworkExplosionSound = this.Content.Load<SoundEffect>("fireworkExplosion");
+            backgroundMusic = this.Content.Load<Song>("renewal");
+            MediaPlayer.Play(backgroundMusic);
             purposeFont = Content.Load<SpriteFont>("purposeFont");
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _mouseTexture = this.Content.Load<Texture2D>("mouse");
@@ -98,6 +109,7 @@ namespace Game_Project_3
                     _fireworks.PlaceFirework(mousePosition);
                 }
                 circle.updatePosition();
+                fireworkExplosionSound.Play(0.3f,0,0);
                 score++;
             }
 

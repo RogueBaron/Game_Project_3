@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin cheatTheNight.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:cheatTheNight.mp3
+
 #begin circle.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -24,6 +30,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:circle.png
+
+#begin mixkit-firework-rockets-exploding-in-the-sky-2993.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:mixkit-firework-rockets-exploding-in-the-sky-2993.wav;fireworkExplosion.wav
 
 #begin mouse.png
 /importer:TextureImporter
@@ -55,6 +67,18 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:purposeFont.spritefont
+
+#begin renewal.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:renewal.mp3
+
+#begin starryNight.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:starryNight.mp3
 
 #begin target.png
 /importer:TextureImporter
