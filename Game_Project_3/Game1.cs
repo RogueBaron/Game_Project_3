@@ -34,6 +34,8 @@ namespace Game_Project_3
 
         public int score;
 
+        public Cube moon;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -58,6 +60,9 @@ namespace Game_Project_3
             Components.Add(circle);
 
             score = 0;
+
+            // Create the cube
+            moon = new Cube(this, Matrix.Identity);
 
             base.Initialize();
         }
@@ -86,6 +91,9 @@ namespace Game_Project_3
             KeyboardState currentKeyboard = Keyboard.GetState();
             Vector2 mousePosition = new Vector2(currentMouse.X, currentMouse.Y);
             var mouserect = new Rectangle(mousePosition.ToPoint(), mousePosition.ToPoint());
+
+            // update the cube 
+            //moon.Update(gameTime);
 
             if (mouserect.Intersects(circle._rectange))
             {
@@ -125,7 +133,9 @@ namespace Game_Project_3
 
         protected override void Draw(GameTime gameTime)
         {
+            
             GraphicsDevice.Clear(Color.Black);
+            moon.Draw();
             _spriteBatch.Begin();
             _spriteBatch.DrawString(purposeFont, "Score: " + score.ToString(), new Vector2(10,10), Color.White);
             _spriteBatch.End();

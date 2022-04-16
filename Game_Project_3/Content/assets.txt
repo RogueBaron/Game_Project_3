@@ -4,6 +4,7 @@ firework explosion sound used with the mixkit License for non-commerical use and
 renewal by airtone (c) copyright 2022 Licensed under a Creative Commons Attribution Noncommercial  (3.0) license. http://dig.ccmixter.org/files/airtone/64601 
 Cheat the Night by ScOmBer (c) copyright 2019 Licensed under a Creative Commons Attribution Noncommercial  (3.0) license. http://dig.ccmixter.org/files/scomber/59915 Ft: Loveshadow
 Starry Night by Admiral Bob (c) copyright 2020 Licensed under a Creative Commons Attribution Noncommercial  (3.0) license. http://dig.ccmixter.org/files/admiralbob77/62843 Ft: snowflake
+Cube model taken from LightingAndCameraDesign exercise tutorial
 
 
 
